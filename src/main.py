@@ -25,16 +25,21 @@ def extract_periodicity(timeseries):
     cost_lag = np.zeros(max_lag)
     for lag in range(max_lag):
         periods = timeseries[lag : num_periods*wavelength + lag].reshape((num_periods, -1))
-        cost_lag[lag] = np.max(pairwise_distances(periods))
+        cost_lag[lag] = np.mean(pairwise_distances(periods))
     optimal_lag = np.argmin(cost_lag)
+    periodic_features = timeseries[optimal_lag : num_periods*wavelength + optimal_lag].reshape((num_periods, -1))
+
     return timeseries[optimal_lag : num_periods*wavelength + optimal_lag].reshape((num_periods, -1))
 
 def plot_periodic_features(timeseries, filename):
     periodic_features = extract_periodicity(timeseries)
     fig, ax = plt.subplots(2, 1, figsize=(10,10))
     ax[0].plot(timeseries)
+    for i in range(len(periodic_features)):
+        ax[1].plot(periodic_features[i])
     current_directory = os.getcwd()
     filepath = os.path.join(current_directory, "plots", filename)
     plt.savefig(filepath)
 
-plot_periodic_features(read_series_from_txt("Period1.txt"), "Plot1.png")
+for i in range(1,5):
+    plot_periodic_features(read_series_from_txt("Period{}.txt".format(i)), "Plot{}.png".format(i))
