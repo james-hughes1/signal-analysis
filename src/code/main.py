@@ -1,5 +1,6 @@
 import os
 import numpy as np
+from scipy.signal import periodogram
 
 def read_series_from_txt(filename):
     current_directory = os.getcwd()
@@ -7,6 +8,12 @@ def read_series_from_txt(filename):
     file = open(filepath, "r")
     lines = file.readlines()
     file.close()
-    return np.array([float(x) for x in lines])
+    timeseries = np.array([float(x) for x in lines])
+    return timeseries
 
-read_series_from_txt("Period1.txt")
+def estimate_wavelength(timeseries):
+    freq_arr, power_arr = periodogram(timeseries)
+    max_freq_idx = np.argmax(power_arr)
+    return 1 / freq_arr[max_freq_idx]
+
+print(estimate_wavelength(read_series_from_txt("Period1.txt")))
