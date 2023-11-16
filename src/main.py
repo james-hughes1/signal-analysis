@@ -1,3 +1,10 @@
+"""!@file main.py
+@brief Main code for extracting the periodic features of time series data.
+
+@details This module contains tools for working with periodic time series.
+@author Created by J. Hughes on 016/11/2023
+"""
+
 import os
 import numpy as np
 from scipy.signal import periodogram
@@ -6,15 +13,13 @@ import matplotlib.pyplot as plt
 
 
 def read_series_from_txt(filename: str) -> np.array:
-    """Takes a .txt filename as input, and returns array whose
+    """!@brief Takes a .txt filename as input, and returns array whose
     elements are found from each line of the file.
 
-    Args:
-        filename (str): name of .txt data file to import, located in /data
-        folder.
+    @param filename Name of .txt data file to import, located in /data
+    folder.
 
-    Returns:
-        np.array: converted 1D timeseries.
+    @return timeseries Converted 1D timeseries.
     """
     current_directory = os.getcwd()
     filepath = os.path.join(current_directory, "data", filename)
@@ -26,14 +31,12 @@ def read_series_from_txt(filename: str) -> np.array:
 
 
 def estimate_wavelength(timeseries: np.array) -> int:
-    """Uses the scipy.signal.periodogram to find strongest wavelength of
+    """!@brief Uses the scipy.signal.periodogram to find strongest wavelength of
     timeseries, assuming unit time steps.
 
-    Args:
-        timeseries (np.array): timeseries to use.
+    @param timeseries Timeseries to use.
 
-    Returns:
-        int: estimated wavelength
+    @return wavelength Estimated wavelength.
     """
     freq_arr, power_arr = periodogram(timeseries)
     max_freq_idx = np.argmax(power_arr)
@@ -41,16 +44,16 @@ def estimate_wavelength(timeseries: np.array) -> int:
 
 
 def extract_periodicity(timeseries: np.array) -> np.array:
-    """Uses estimate_wavelength to generate periodic features by optimising
+    """!@brief Extract periodic features from time series.
+    
+    @details Uses estimate_wavelength to generate periodic features by optimising
     location of the period windows, via minimising the average pairwise L2
     dist of the periodic features.
 
-    Args:
-        timeseries (np.array): timeseries to use.
+    @param timeseries timeseries to use.
 
-    Returns:
-        np.array: 2D array whose rows are the exclusive periodic subsets of
-        the timeseries.
+    @return extracted_periods 2D array whose rows are the exclusive periodic subsets of
+    the timeseries.
     """
     wavelength = estimate_wavelength(timeseries)
     max_lag = len(timeseries) % wavelength
@@ -71,11 +74,10 @@ def extract_periodicity(timeseries: np.array) -> np.array:
 
 
 def plot_periodic_features(timeseries: np.array, filename: str):
-    """Save plots of the periodic features of the given timeseries
+    """!@briefSave plots of the periodic features of the given timeseries
 
-    Args:
-        timeseries (np.array): timeseries to use.
-        filename (str): output file name, including extension (often .png).
+    @param timeseries timeseries to use.
+    @param filename output file name, including extension (often .png).
     """
     periodic_features = extract_periodicity(timeseries)
     # Produce plot of original and of extracted periodic features.
