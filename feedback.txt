@@ -1,0 +1,26 @@
+Notes from class:
+--------------
+
+- Maybe find out how to do Q9 from the first question.
+- Going back to see and then reverting: git checkout [commit SHA]; git checkout master
+- For the signal processing task, best to smooth the function first.
+    - This is beneficial for general tasks such as minimisation (smooth likelihood before MLE)
+    - Or use regularisation to smooth cost function when training a NN.
+- Then use filters; savgol_filter or gaussian_filter (best).
+    - argrelextrema, find_peaks (best) are useful.
+- James then plotted peak-to-peak
+    - but you could use find_peak_widths
+- After filter, apply a fft (fourier transform)
+- Moreover, James tests all of these functions separately first. He will send the solutions on.
+
+- Remember to include prototyping in the coursework; can include this in the report
+    - Also with your comments, add things that you learn along the way in writing the code.
+    - See how James does this in the solutions.
+    - Comment with sources.
+
+- Sudoku:
+    - Remember to have a test/dev branch and merge when things work
+    - Good idea to implement multiple algorithms, and see if they converge to same answer (maybe?)
+    - Or maybe just do the quickest one.
+
+
