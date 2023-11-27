@@ -22,7 +22,7 @@ dependencies:
   - brotli-bin=1.0.9
   - brotli-python=1.0.9
   - ca-certificates=2023.08.22
-  - certifi=2023.7.22
+  - certifi=2023.11.17
   - cffi=1.15.1
   - charset-normalizer=2.0.4
   - comm=0.1.2
@@ -110,6 +110,7 @@ dependencies:
   - libxcb=1.15
   - libxkbcommon=1.0.1
   - libxml2=2.10.4
+  - line_profiler=4.1.1
   - lz4-c=1.9.4
   - markupsafe=2.1.1
   - matplotlib=3.8.0
