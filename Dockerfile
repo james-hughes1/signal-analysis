@@ -1,7 +1,9 @@
 FROM continuumio/miniconda3
 
-RUN mkdir -p project \
-    && git clone signal-analysis project/
+COPY . /projects/signal-analysis
 
-RUN cd signal-analysis \
-    conda env update --file environment.yml --name ml_ds
+WORKDIR /projects/signal-analysis
+
+RUN conda env update --file environment.yml --name base
+
+EXPOSE 8888
