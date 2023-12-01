@@ -1,8 +1,10 @@
 FROM continuumio/miniconda3
 
-COPY . /projects/signal-analysis
+RUN mkdir -p signal-analysis
 
-WORKDIR /projects/signal-analysis
+COPY . /signal-analysis
+
+WORKDIR /signal-analysis
 
 RUN conda env update --file environment.yml --name base
 
